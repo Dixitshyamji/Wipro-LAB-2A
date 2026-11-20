@@ -1,49 +1,25 @@
-// ============================================================
-// Task 4: Loop-based vs Higher-Order-Function solution
-//         with readability trade-off explanation
-// ============================================================
-
 import Foundation
-
-// Shared data: an array of test scores
 let testScores: [Int] = [45, 82, 91, 37, 68, 55, 76, 90, 23, 88]
 let passMark = 60
-
-// ─────────────────────────────────────────────────────────────
-// APPROACH A — Imperative / Loop-based
-// ─────────────────────────────────────────────────────────────
-
-/// Returns only passing scores, scaled by 1.1, summed — using explicit loops.
 func processScores_Loop(scores: [Int], passMark: Int) -> (passing: [Int], scaled: [Double], total: Double) {
     var passing: [Int]    = []
     var scaled:  [Double] = []
     var total:   Double   = 0.0
-
-    // Step 1: filter
     for score in scores {
         if score >= passMark {
             passing.append(score)
         }
     }
-
-    // Step 2: map (scale by 10 %)
     for score in passing {
         scaled.append(Double(score) * 1.1)
     }
 
-    // Step 3: reduce (sum)
     for s in scaled {
         total += s
     }
 
     return (passing, scaled, total)
 }
-
-// ─────────────────────────────────────────────────────────────
-// APPROACH B — Functional / Higher-Order Functions
-// ─────────────────────────────────────────────────────────────
-
-/// Returns only passing scores, scaled by 1.1, summed — using HOFs.
 func processScores_HOF(scores: [Int], passMark: Int) -> (passing: [Int], scaled: [Double], total: Double) {
     let passing = scores.filter { $0 >= passMark }
     let scaled  = passing.map   { Double($0) * 1.1 }
@@ -51,7 +27,6 @@ func processScores_HOF(scores: [Int], passMark: Int) -> (passing: [Int], scaled:
     return (passing, scaled, total)
 }
 
-// MARK: - Demo
 func runTask4() {
     print("\n========== TASK 4: Loop vs Higher-Order Functions ==========\n")
 
@@ -70,8 +45,6 @@ func runTask4() {
 
     printResult(label: "Loop-based", result: loopResult)
     printResult(label: "HOF-based ", result: hofResult)
-
-    // Verify both approaches produce the same result
     let match = loopResult.passing == hofResult.passing
              && loopResult.scaled  == hofResult.scaled
              && loopResult.total   == hofResult.total
