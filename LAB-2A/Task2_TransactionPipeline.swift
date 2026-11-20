@@ -1,10 +1,4 @@
-// ============================================================
-// Task 2: Transactions — filter, map, reduce
-// ============================================================
-
 import Foundation
-
-// MARK: - Data Model
 enum TransactionType: String {
     case income  = "Income"
     case expense = "Expense"
@@ -13,11 +7,10 @@ enum TransactionType: String {
 struct Transaction {
     let id:          Int
     let description: String
-    let amount:      Double          // positive value
+    let amount:      Double          /
     let type:        TransactionType
 }
 
-// MARK: - Sample Data
 let transactions: [Transaction] = [
     Transaction(id: 1, description: "Salary",           amount: 50000, type: .income),
     Transaction(id: 2, description: "Rent",             amount: 15000, type: .expense),
@@ -29,28 +22,22 @@ let transactions: [Transaction] = [
     Transaction(id: 8, description: "Dining Out",       amount: 2100,  type: .expense),
 ]
 
-// MARK: - Higher-Order Pipeline
 
-/// Step 1 — filter: keep only expense transactions
 func filterExpenses(from transactions: [Transaction]) -> [Transaction] {
     return transactions.filter { $0.type == .expense }
 }
 
-/// Step 2 — map: transform each expense into a human-readable summary string
 func mapToSummary(transactions: [Transaction]) -> [String] {
     return transactions.map { t in
         String(format: "%-20s ₹%8.2f", (t.description as NSString).utf8String!, t.amount)
     }
 }
 
-/// Step 3 — reduce: sum all expense amounts to get the total outflow
 func reduceToTotal(transactions: [Transaction]) -> Double {
     return transactions.reduce(0.0) { accumulator, transaction in
         accumulator + transaction.amount
     }
 }
-
-// MARK: - Demo
 func runTask2() {
     print("\n========== TASK 2: filter → map → reduce ==========\n")
 
@@ -64,7 +51,6 @@ func runTask2() {
     print(String(repeating: "-", count: 36))
     print(String(format: "  %-20s ₹%8.2f", "TOTAL EXPENSES", totalExpense))
 
-    // Bonus: total income for comparison
     let totalIncome = transactions
         .filter  { $0.type == .income }
         .map     { $0.amount }
