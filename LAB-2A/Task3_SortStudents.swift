@@ -1,17 +1,10 @@
-// ============================================================
-// Task 3: Sort students by marks (descending), then by name (ascending) for ties
-// ============================================================
-
 import Foundation
-
-// MARK: - Data Model
 struct Student {
     let name:  String
     let marks: Double
     let grade: String
 }
 
-// MARK: - Sample Data
 let students: [Student] = [
     Student(name: "Priya Sharma",   marks: 91.5, grade: "A"),
     Student(name: "Amit Verma",     marks: 85.0, grade: "B"),
@@ -23,20 +16,15 @@ let students: [Student] = [
     Student(name: "Kabir Singh",    marks: 76.0, grade: "C"),
 ]
 
-// MARK: - Sorting Function
-/// Sorts students by marks descending; breaks ties alphabetically by name ascending.
-/// - Parameter students: The unsorted array of Student records.
-/// - Returns: A new array sorted by (marks DESC, name ASC).
 func sortStudents(_ students: [Student]) -> [Student] {
     return students.sorted { lhs, rhs in
         if lhs.marks != rhs.marks {
-            return lhs.marks > rhs.marks    // primary: higher marks first
+            return lhs.marks > rhs.marks    
         }
-        return lhs.name < rhs.name          // secondary: alphabetical name
+        return lhs.name < rhs.name          /
     }
 }
 
-// MARK: - Display Helper
 func printLeaderboard(_ students: [Student]) {
     let header = String(format: "%-4s %-22s %6s  %s", "Rank", "Name", "Marks", "Grade")
     let divider = String(repeating: "─", count: 44)
@@ -53,7 +41,6 @@ func printLeaderboard(_ students: [Student]) {
     print(divider)
 }
 
-// MARK: - Demo
 func runTask3() {
     print("\n========== TASK 3: Sorted Student Leaderboard ==========\n")
 
